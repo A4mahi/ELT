@@ -17,9 +17,6 @@ contract ELTToken is StandardTokenExt {
     string public symbol;
     uint public decimals;
 
-    // Token release switch
-    bool public released = false;
-
     /** Name and symbol were updated. */
     event UpdatedTokenInformation(string newName, string newSymbol);
 

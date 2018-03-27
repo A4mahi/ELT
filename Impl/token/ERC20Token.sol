@@ -15,6 +15,9 @@ contract ERC20Token is ERC20Interface, ERC223Interface {
     mapping(address => uint) timevault;
     mapping(address => mapping(address => uint)) allowed;
     
+    // Token release switch
+    bool public released = false;
+
     // The date before the release must be finalized or upgrade path will be forced
     uint public releaseFinalizationDate;
 
