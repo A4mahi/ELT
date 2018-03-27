@@ -235,7 +235,7 @@ contract Versioned is owned,StandardTokenExt {
     }
 }
 /**
- * Centrally issued Ethereum token.
+ * ELT Token.
  *
  * Token supply is created in the token contract creation and allocated to owner.
  * The owner can then transfer from its supply to crowdsale participants.
