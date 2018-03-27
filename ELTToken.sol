@@ -286,13 +286,13 @@ contract ELTToken is Versioned {
     emit UpdatedTokenInformation(name, symbol);
   }
   function isContract(address _addr) private view returns (bool is_contract) {
-		 uint length;
-		 assembly 
-		 {
-		//retrieve the size of the code on target address, this needs assembly
-			length := extcodesize(_addr)
-		 }
-		 return (length>0);
+	 uint length;
+	 assembly 
+	 {
+	//retrieve the size of the code on target address, this needs assembly
+		length := extcodesize(_addr)
+	 }
+	 return (length>0);
   }
    // Function that is called when a user or another contract wants to transfer funds .
  function transfer(address _to, uint _value, bytes _data) public returns (bool success) {
