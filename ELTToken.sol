@@ -357,5 +357,4 @@ contract ELTToken is Versioned {
   function setreleaseFinalizationDate(uint _value) onlyOwner public {
     releaseFinalizationDate = _value;
   }
-  
 }
