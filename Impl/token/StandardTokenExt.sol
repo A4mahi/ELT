@@ -1,3 +1,5 @@
+pragma solidity ^0.4.21;
+
 /**
  * Standard EIP-20 token with an interface marker.
  *
@@ -7,9 +9,9 @@
 import "./StandardToken.sol";
 
 contract StandardTokenExt is StandardToken {
-
+    
     /* Interface declaration */
-    function isToken() public constant returns (bool weAre) {
+    function isToken() public pure returns (bool weAre) {
         return true;
     }
 }

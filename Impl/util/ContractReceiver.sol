@@ -1,4 +1,6 @@
 
+pragma solidity ^0.4.21;
+
 contract ContractReceiver {
     struct TKN {
         address sender;

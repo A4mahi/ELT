@@ -1,3 +1,5 @@
+pragma solidity ^0.4.21;
+
 /**
  * ERC223 with added Lendo Functions for Time Vault
  */

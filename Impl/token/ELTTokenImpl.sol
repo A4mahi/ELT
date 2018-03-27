@@ -17,13 +17,10 @@ contract ELTToken is StandardTokenExt {
     string public symbol;
     uint public decimals;
 
-    function setreleaseFinalizationDate(uint _value);
-    function releaseTokenTransfer(bool _value);
-    
     /** Name and symbol were updated. */
     event UpdatedTokenInformation(string newName, string newSymbol);
 
-    function ELTToken(address _owner, string _name, string _symbol, uint _totalSupply, uint _decimals, uint _releaseFinalizationDate) {
+    function ELTToken(address _owner, string _name, string _symbol, uint _totalSupply, uint _decimals, uint _releaseFinalizationDate) public {
         name = _name;
         symbol = _symbol;
         totalSupply = _totalSupply;

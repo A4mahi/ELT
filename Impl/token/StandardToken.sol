@@ -1,3 +1,5 @@
+pragma solidity ^0.4.21;
+
 /**
  * @title Standard ERC23 token
  *

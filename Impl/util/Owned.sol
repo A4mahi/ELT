@@ -1,3 +1,5 @@
+pragma solidity ^0.4.21;
+
 /**
  * @title Owned
  * @dev To verify ownership
