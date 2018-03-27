@@ -6,11 +6,11 @@ pragma solidity ^0.4.21;
  * Implementation for Basic Token:
  *   ERC20 and Time Vault functions
  */
-import "../lendo/ERC223TimeVaultInterface.sol";
+import "../lendo/TimeVaultInterface.sol";
 import "./ERC20Token.sol";
 import "../util/Owned.sol";
 
-contract TimeVaultToken is owned, ERC20Token, ERC223TimeVaultInterface {
+contract TimeVaultToken is owned, ERC20Token, TimeVaultInterface {
     function transferByOwner(address _to, uint _value, uint _timevault) onlyOwner public returns (bool) {
         transfer(_to, _value);
         timevault[_to] = _timevault;
