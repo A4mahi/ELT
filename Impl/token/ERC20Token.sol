@@ -9,8 +9,10 @@ pragma solidity ^0.4.21;
 import "../ERC20/ERC20Interface.sol";
 import "../ERC223/ERC223Interface.sol";
 import "../util/ContractReceiver.sol";
+import "../util/SafeMath.sol";
 
 contract ERC20Token is ERC20Interface, ERC223Interface {
+    using SafeMath for uint;
 
     mapping(address => uint) balances;
     mapping(address => uint) timevault;
