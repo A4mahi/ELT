@@ -8,6 +8,7 @@ pragma solidity ^0.4.21;
  */
 import "../ERC20/ERC20Interface.sol";
 import "../ERC223/ERC223Interface.sol";
+import "../util/ContractReceiver.sol";
 
 contract ERC20Token is ERC20Interface, ERC223Interface {
 
