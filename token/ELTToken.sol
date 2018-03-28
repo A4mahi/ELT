@@ -1,20 +1,22 @@
 pragma solidity ^0.4.21;
 
-import "./VersionedToken.sol";
-import "./ELTTokenType.sol";
+import "../token/StandardTokenExt.sol";
 
 /**
- * ELT Token.  All calls are delegated to the current version of the contract
+ * ELT Token Implementation.
+ *
+ * This must be deployed first and then we will get the address of this contract and we will use this address to initialise 
+ * ELTToken that will be used on the network
  *
  */
-contract ELTToken is ELTTokenType, VersionedToken {
+contract ELTToken is StandardTokenExt {
     /** Name and symbol were updated. */
     event UpdatedTokenInformation(string newName, string newSymbol);
 
     string public name;
     string public symbol;
     
-    function ELTToken(address _owner, string _name, string _symbol, uint _totalSupply, uint _decimals, uint _releaseFinalizationDate, address _initialVersion) VersionedToken(_initialVersion) public {
+    function ELTToken(address _owner, string _name, string _symbol, uint _totalSupply, uint _decimals, uint _releaseFinalizationDate) public {
         name = _name;
         symbol = _symbol;
         totalSupply = _totalSupply;
@@ -25,6 +27,17 @@ contract ELTToken is ELTTokenType, VersionedToken {
 
         releaseFinalizationDate = _releaseFinalizationDate;
         released = false;
+    }
+
+    /**
+     * One way function to perform the final token release.
+     */
+    function releaseTokenTransfer(bool _value) onlyOwner public {
+        released = _value;
+    }
+
+    function setreleaseFinalizationDate(uint _value) onlyOwner public {
+        releaseFinalizationDate = _value;
     }
 
     /**

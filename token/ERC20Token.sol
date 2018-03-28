@@ -10,7 +10,7 @@ import "../ERC20/ERC20Interface.sol";
 import "../ERC223/ERC223Interface.sol";
 import "../util/ContractReceiver.sol";
 import "../util/SafeMath.sol";
-import "../../token/ELTTokenType.sol";
+import "./ELTTokenType.sol";
 
 contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     using SafeMath for uint;
@@ -24,10 +24,10 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     function transfer(address _to, uint _value, bytes _data) public returns (bool success) {
 
         if (isContract(_to)) {
-            return transferToContract(_to, _value, _data);
+            return transferToContract(_to, _value, _data, false);
         }
         else {
-            return transferToAddress(_to, _value, _data);
+            return transferToAddress(_to, _value, _data, false);
         }
     }
     
@@ -73,22 +73,22 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     
 
     //function that is called when transaction target is an address
-    function transferToAddress(address _to, uint _value, bytes _data) private returns (bool success) {
-        transferIfRequirementsMet(_to, _value);
+    function transferToAddress(address _to, uint _value, bytes _data, bool withAllowance) private returns (bool success) {
+        transferIfRequirementsMet(msg.sender, _to, _value, withAllowance);
         emit Transfer(msg.sender, _to, _value, _data);
         return true;
     }
     
     //function that is called when transaction target is a contract
-    function transferToContract(address _to, uint _value, bytes _data) private returns (bool success) {
-        transferIfRequirementsMet(_to, _value);
+    function transferToContract(address _to, uint _value, bytes _data, bool withAllowance) private returns (bool success) {
+        transferIfRequirementsMet(msg.sender, _to, _value, withAllowance);
         ContractReceiver receiver = ContractReceiver(_to);
         receiver.tokenFallback(msg.sender, _value, _data);
         emit Transfer(msg.sender, _to, _value, _data);
         return true;
     }
 
-    function checkTransferRequirements(address _to, uint _value) private view {
+    function checkTransferRequirements(address _from, address _to, uint _value) private view {
         require(_to != address(0));
         require(released == true);
         require(now > releaseFinalizationDate);
@@ -96,12 +96,28 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
         {
             require(now > timevault[msg.sender]);
         }
-        if (balanceOf(msg.sender) < _value) revert();
+        if (balanceOf(_from) < _value) revert();
     }
 
-    function transferIfRequirementsMet(address _to, uint _value) private {
-        checkTransferRequirements(_to, _value);
-        balances[msg.sender] = balances[msg.sender].sub(_value);
+    function transferIfRequirementsMet(address _from, address _to, uint _value, bool withAllowances) private {
+        checkTransferRequirements(_from, _to, _value);
+        if ( withAllowances)
+        {
+            require (_value <= allowed[_from][msg.sender]);
+        }
+        balances[_from] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
     }
+    
+    function transferFrom(address from, address to, uint value) public returns (bool) {
+        bytes memory empty;
+        if (isContract(to)) {
+            return transferToContract(to, value, empty, true);
+        }
+        else {
+            return transferToAddress(to, value, empty, true);
+        }
+        allowed[from][msg.sender] = allowed[from][msg.sender].sub(value);
+        return true;
+      }
 }

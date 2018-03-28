@@ -11,17 +11,17 @@ import "./ERC20Token.sol";
 import "../util/Owned.sol";
 
 contract TimeVaultToken is owned, ERC20Token, TimeVaultInterface {
-    function transferByOwner(address _to, uint _value, uint _timevault) onlyOwner public returns (bool) {
-        transfer(_to, _value);
-        timevault[_to] = _timevault;
+    function transferByOwner(address to, uint value, uint earliestReTransferTime) onlyOwner public returns (bool) {
+        transfer(to, value);
+        timevault[to] = earliestReTransferTime;
         return true;
     }
 
-    function timeVault(address _owner) public constant returns (uint timevaults) {
-        return timevault[_owner];
+    function timeVault(address owner) public constant returns (uint earliestTransferTime) {
+        return timevault[owner];
     }
 
-    function getNow() public constant returns (uint _now) {
+    function getNow() public constant returns (uint blockchainTimeNow) {
         return now;
     }
 
