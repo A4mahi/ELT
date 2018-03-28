@@ -4,9 +4,6 @@ pragma solidity ^0.4.21;
  * All meta information for the Token must be defined here so that it can be accessed from both sides of proxy
  */
 contract ELTTokenType {
-    string public name;
-    string public symbol;
-
     uint public decimals;
     uint public totalSupply;
 
