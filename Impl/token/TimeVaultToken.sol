@@ -17,7 +17,7 @@ contract TimeVaultToken is owned, ERC20Token, TimeVaultInterface {
         return true;
     }
 
-    function timeVault(address _owner) public constant returns (uint timevaluts) {
+    function timeVault(address _owner) public constant returns (uint timevaults) {
         return timevault[_owner];
     }
 

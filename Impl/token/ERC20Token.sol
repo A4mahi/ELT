@@ -72,8 +72,23 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     }
     
 
+    //function that is called when transaction target is an address
+    function transferToAddress(address _to, uint _value, bytes _data) private returns (bool success) {
+        transferIfRequirementsMet(_to, _value);
+        emit Transfer(msg.sender, _to, _value, _data);
+        return true;
+    }
+    
     //function that is called when transaction target is a contract
     function transferToContract(address _to, uint _value, bytes _data) private returns (bool success) {
+        transferIfRequirementsMet(_to, _value);
+        ContractReceiver receiver = ContractReceiver(_to);
+        receiver.tokenFallback(msg.sender, _value, _data);
+        emit Transfer(msg.sender, _to, _value, _data);
+        return true;
+    }
+
+    function checkTransferRequirements(address _to, uint _value) private view {
         require(_to != address(0));
         require(released == true);
         require(now > releaseFinalizationDate);
@@ -82,26 +97,11 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
             require(now > timevault[msg.sender]);
         }
         if (balanceOf(msg.sender) < _value) revert();
-        balances[msg.sender] = balances[msg.sender].sub(_value);
-        balances[_to] = balances[_to].add(_value);
-        ContractReceiver receiver = ContractReceiver(_to);
-        receiver.tokenFallback(msg.sender, _value, _data);
-        emit Transfer(msg.sender, _to, _value, _data);
-        return true;
     }
 
-    //function that is called when transaction target is an address
-    function transferToAddress(address _to, uint _value, bytes _data) private returns (bool success) {
-        require(_to != address(0));
-        require(released == true);
-        require(now > releaseFinalizationDate);
-        if (timevault[msg.sender] != 0)
-        {
-            require(now > timevault[msg.sender]);
-        }
+    function transferIfRequirementsMet(address _to, uint _value) private {
+        checkTransferRequirements(_to, _value);
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
-        emit Transfer(msg.sender, _to, _value, _data);
-        return true;
     }
 }

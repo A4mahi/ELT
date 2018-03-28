@@ -10,28 +10,8 @@ import "../token/StandardTokenExt.sol";
  *
  */
 contract ELTToken is StandardTokenExt {
-    /** Name and symbol were updated. */
-    event UpdatedTokenInformation(string newName, string newSymbol);
-
     function ELTToken() public {
     }
-
-    /**
-     * Owner can update token information here.
-     *
-     * It is often useful to conceal the actual token association, until
-     * the token operations, like central issuance or reissuance have been completed.
-     * In this case the initial token can be supplied with empty name and symbol information.
-     *
-     * This function allows the token owner to rename the token after the operations
-     * have been completed and then point the audience to use the token contract.
-     */
-    function setTokenInformation(string _name, string _symbol) onlyOwner public {
-        name = _name;
-        symbol = _symbol;
-        emit UpdatedTokenInformation(name, symbol);
-    }
-
 
     /**
      * One way function to perform the final token release.
