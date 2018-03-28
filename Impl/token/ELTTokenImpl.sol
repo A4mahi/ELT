@@ -2,7 +2,6 @@ pragma solidity ^0.4.21;
 
 import "../token/StandardTokenExt.sol";
 
-
 /**
  * ELT Token Implementation.
  *
@@ -11,25 +10,10 @@ import "../token/StandardTokenExt.sol";
  *
  */
 contract ELTToken is StandardTokenExt {
-
-    // Token meta information
-    string public name;
-    string public symbol;
-    uint public decimals;
-
     /** Name and symbol were updated. */
     event UpdatedTokenInformation(string newName, string newSymbol);
 
-    function ELTToken(address _owner, string _name, string _symbol, uint _totalSupply, uint _decimals, uint _releaseFinalizationDate) public {
-        name = _name;
-        symbol = _symbol;
-        totalSupply = _totalSupply;
-        decimals = _decimals;
-
-        // Allocate initial balance to the owner
-        balances[_owner] = _totalSupply;
-
-        releaseFinalizationDate = _releaseFinalizationDate;
+    function ELTToken() public {
     }
 
     /**

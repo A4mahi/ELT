@@ -10,19 +10,10 @@ import "../ERC20/ERC20Interface.sol";
 import "../ERC223/ERC223Interface.sol";
 import "../util/ContractReceiver.sol";
 import "../util/SafeMath.sol";
+import "../../token/ELTTokenType.sol";
 
-contract ERC20Token is ERC20Interface, ERC223Interface {
+contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     using SafeMath for uint;
-
-    mapping(address => uint) balances;
-    mapping(address => uint) timevault;
-    mapping(address => mapping(address => uint)) allowed;
-    
-    // Token release switch
-    bool public released = false;
-
-    // The date before the release must be finalized or upgrade path will be forced
-    uint public releaseFinalizationDate;
 
     function transfer(address _to, uint _value) public returns (bool success) {
         bytes memory empty;
