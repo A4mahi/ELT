@@ -1,6 +1,6 @@
 pragma solidity ^0.4.21;
 
-import "../ELTTokenImpl.sol";
+import "./ELTTokenImpl.sol";
 import "../version/VersionedToken.sol";
 import "./ELTTokenType.sol";
 
