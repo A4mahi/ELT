@@ -1,5 +1,8 @@
 pragma solidity ^0.4.21;
 
+/**
+ * As part of the ERC223 standard we need to call the fallback of the token 
+ */
 contract ContractReceiver {
     struct TKN {
         address sender;

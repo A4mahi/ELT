@@ -1,6 +1,9 @@
 pragma solidity ^0.4.21;
 
 /**
+ * VersionedToken:
+ * 
+ * This contract allows our token to be upgraded and versioned.
  * 
  */
 
@@ -9,14 +12,42 @@ import "../util/Owned.sol";
 contract VersionedToken is owned {
     address public upgradableContractAddress;
 
+    /**
+     * Constructor: 
+     *  initialVersion - the address of the initial version of the implementation for the contract
+     * 
+     * Note that this implementation must be visible to the relay contact even though it will not be a subclass
+     * do this by importing the main contract that implements it.  If the code is not visible it will not 
+     * always be accessible through the delegatecall() function.  And even if it is, it will take an unlimited amount
+     * of gas to process the call.
+     * 
+     * In our case this it is ELTTokenImpl.sol
+     * e.g.
+     *    import "ELTToken.sol"
+     * 
+     * Please note: IMPORTANT
+     * do not implement any function called "update()" otherwise it will break the Versioning system
+     */
     function VersionedToken(address initialVersion) public {
         upgradableContractAddress = initialVersion;
     }
 
+    /**
+     * update
+     * Call to update the implementation version of this constract
+     *  newVersion: this is the address of the new implementation for the contract
+     */
+    
     function update(address newVersion) onlyOwner public {
         upgradableContractAddress = newVersion;
     }
 
+    /**
+     * This is the fallback function that is called whenever a contract is called but can't find the called function.
+     * In this case we delegate the call to the implementing contract ELTTokenImpl
+     *
+     * Instead of using delegatecall() in Solidity we use the assembly because it allows us to return values to the caller
+     */
     function() public {
         address upgradableContractMem = upgradableContractAddress;
         bytes memory functionCall = msg.data;

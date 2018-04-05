@@ -7,8 +7,11 @@ import "./ELTTokenType.sol";
 /**
  * ELT Token Implementation.
  *
- * This must be deployed first and then we will get the address of this contract and we will use this address to initialise 
- * ELTToken that will be used on the network
+ * This must be deployed second, after the ELTTokenImpl is deployed.  It requires the 
+ * address of the implementation contract to initialise.
+ * 
+ * Deploy with a test name and symbol first and from a development address first, then call setTokenInformation(_name, _symbol) 
+ * to update the token's symbol and name, and then call transferOwnership(newOwner) to change owner to the token owners address 
  *
  */
 

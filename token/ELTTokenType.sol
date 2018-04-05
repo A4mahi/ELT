@@ -15,7 +15,7 @@ contract ELTTokenType {
     // Token release switch
     bool public released;
     
-    // The date before the release must be finalized or upgrade path will be forced
+    // The date before the release must be finalized (a unix timestamp)
     uint public releaseFinalizationDate;
 }
 

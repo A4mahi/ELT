@@ -3,8 +3,7 @@ pragma solidity ^0.4.21;
 /**
  * @title Basic token
  * @dev Basic version of StandardToken, with no allowances.
- * Implementation for Basic Token:
- *   ERC20 and Time Vault functions
+ * This is the implementation the Basic Token ERC20 and ERC223 token with added Time Vault functions
  */
 import "../ERC20/ERC20Interface.sol";
 import "../ERC223/ERC223Interface.sol";
@@ -51,7 +50,6 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
         return allowed[_owner][_spender];
     }
 
-
     /**
     * @dev Gets the balance of the specified address.
     * @param _owner The address to query the the balance of.
@@ -88,6 +86,10 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
         return true;
     }
 
+    // Function to verify that all the requirements to transfer are satisfied
+    // The destination is not the null address
+    // The tokens have been released for sale
+    // The sender's tokens are not locked in a timevault
     function checkTransferRequirements(address _from, address _to, uint _value) private view {
         require(_to != address(0));
         require(released == true);
@@ -96,9 +98,9 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
         {
             require(now > timevault[msg.sender]);
         }
-        if (balanceOf(_from) < _value) revert();
     }
 
+    // Do the transfer if the requirements are met
     function transferIfRequirementsMet(address _from, address _to, uint _value, bool withAllowances) private {
         checkTransferRequirements(_from, _to, _value);
         if ( withAllowances)
@@ -108,7 +110,8 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
         balances[_from] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
     }
-    
+
+    // Transfer from one address to another taking into account ERC223 condition to verify that the to address is a contract or not
     function transferFrom(address from, address to, uint value) public returns (bool) {
         bytes memory empty;
         if (isContract(to)) {

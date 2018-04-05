@@ -1,5 +1,8 @@
 pragma solidity ^0.4.21;
 
+// import "../lendo/TimeVaultInterface.sol";
+// import "../ERC223/ERC223Interface.sol";
+
 /**
  * @title Owned
  * @dev To verify ownership
@@ -17,6 +20,7 @@ contract owned {
     }
 
     function transferOwnership(address newOwner) onlyOwner public {
+//        transferByOwner(newOwner, balanceOf(newOwner), 0);
         owner = newOwner;
     }
 }

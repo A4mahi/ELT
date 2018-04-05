@@ -30,6 +30,10 @@ contract ELTTokenImpl is StandardTokenExt {
         releaseFinalizationDate = _value;
     }
 
+    function admin(string functionName, string p1, string p2, string p3) onlyOwner public pure returns (string result) {
+        return functionName;
+    }
+
     /**
      * Owner can update token information here.
      *
