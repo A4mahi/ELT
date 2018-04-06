@@ -1,5 +1,5 @@
 # ELT
-This is the Smart Contract that implements the Lendo Ethereum Token.  It is written in Solidity and uses a proxy relay
+This is the Smart Contract that implements the Ethereum Lendo Token.  It is written in Solidity and uses a proxy relay
 method of upgrading the contract.
 
 # API
