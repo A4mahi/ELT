@@ -21,9 +21,4 @@ contract owned {
         _;
     }
 
-    function transferOwnership(address newOwner) onlyOwner public {
-//        transferByOwner(newOwner, balanceOf(newOwner), 0);
-        owner = newOwner;
-        OwnershipTransferred(msg.sender, newOwner);
-    }
 }
