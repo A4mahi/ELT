@@ -5,28 +5,37 @@ method of upgrading the contract.
 # API
 ## Token Management
 ### Construction
-| Function        | Parameters | Return | Description  |
-| ------------- |:-------------:| -----:| -----:|
-| `ELTToken`      | `address _owner, string _name, string _symbol, uint _totalSupply, uint _decimals, uint _releaseFinalizationDate, address _initialVersion` |  | Creates the Ethereum Lendo Token (ELT) | 
-| `setTokenInformation`      | `string _name, string _symbol` | `bool` | Allows thet token owner to change information: Name and Symbol. | 
+| Function        | Parameters |  Description  |
+| ------------- |:-------------:| -----:|
+| **`ELTToken`**      |  | **Creates the Ethereum Lendo Token (ELT)** | 
+|       | `address _owner` |  Address of owner of the Lendo Token | 
+|       | `string _name` |  Name of token: Ethereum Lendo Token | 
+|       | `string _symbol` |  Symbol: ELT | 
+|       | `uint _totalSupply` | Total amount of tokens to create| 
+|       | `uint _decimals` | Number of decimal places precision | 
+|       | `uint _globalTimeVault` | Date when tokens are to be released.   | 
+|       | `address _initialImplementation` | Creates the Ethereum Lendo Token (ELT) |
+ 
 ### Maintenance
 | Function        | Parameters | Return | Description  |
 | ------------- |:-------------:| -----:| -----:|
-| `transferOwnership`      | `address newOwner` | `bool` | Change owner of token | 
-| `update`      | `address newAddress` | `bool` | Change the implementation of the contract for an update in version | 
+| `setTokenInformation`      | `string _name, string _symbol` | `bool` | Allows the token owner to change token information: Name and symbol. | 
+| `transferOwnership`      | `address newOwner` | `bool` | Change owner of token.  All tokens owned by current owner will be transferred to new owner during change of ownership | 
+| `upgradeToken`      | `address newImplementation` | `bool` | Change the implementation of the contract for an update in version | 
 ### Super User Functions
 
 | Function        | Parameters | Return | Description  |
 | ------------- |:-------------:| -----:| -----:|
-| `transferByOwner`      | `address _to, uint _value, uint _timevault` | `bool` | This function allows the Token Owner to transfer coins to an arbitrary address | 
-| `setreleaseFinalizationDate`      | `uint _value` | `bool` | Set a date from which token transfer will be unlocked | 
-| `releaseTokenTransfer`      | `bool _value` | `bool` | All token transfers are blocked until you call this with true | 
+| `transferByOwner`      | `address _to, uint _value, uint _timevault` | `bool` | This function allows the token owner to distribute tokens to an arbitrary address.  The distributed tokens are locked in a time vault until it opens at the time specified by the timeVault parameter (unix timestamp) | 
+| `setGlobalTimeVault`      | `uint _value` | `bool` | Set a global date from which token transfer will be unlocked.  At this time any token owner will be able to transfer tokens.  The date is specified as a unix timestamp.  **Important note**: *This global time vault works in conjunction with the global release flag below.  Both must be open to allow token transfer* | 
+| `releaseTokenTransfer`      | `bool _value` | `bool` | This is a control for releasing the token transfer function.  All token transfers will remain blocked until you call this with true. **Important note**: *This global release flag works in conjunction with the global time vault above.  Both must be open to allow token transfer* | 
 
 ## Public API
 ### Information
 | Function        | Parameters | Return | Description  |
 | ------------- |:-------------:| -----:| -----:|
 | `allowance`      | `address _owner, address _spender` | `bool` | Determine current allowance setting | 
+| `totalSupply`      |  | Determine total supply of tokens | 
 | `balanceOf`      | `address _to, uint _value, uint _timevault` | `uint balance` | Determine current balance | 
 | `isToken`      | ` (bool weAre` | `bool weAre` | Is this a token, always return true | 
 | `timeVault`      | `address _owner` | `uint timevaults` | See what the current time lock on funds is | 

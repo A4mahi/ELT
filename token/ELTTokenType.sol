@@ -16,6 +16,6 @@ contract ELTTokenType {
     bool public released;
     
     // The date before the release must be finalized (a unix timestamp)
-    uint public releaseFinalizationDate;
+    uint public globalTimeVault;
 }
 

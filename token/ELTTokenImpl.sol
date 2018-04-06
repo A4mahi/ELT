@@ -18,6 +18,13 @@ contract ELTTokenImpl is StandardTokenExt {
     
     function ELTTokenImpl() public {
     }
+    
+    // ------------------------------------------------------------------------
+    // Don't accept ETH
+    // ------------------------------------------------------------------------
+    function () public payable {
+        revert();
+    }
 
     /**
      * One way function to perform the final token release.
@@ -26,8 +33,8 @@ contract ELTTokenImpl is StandardTokenExt {
         released = _value;
     }
 
-    function setreleaseFinalizationDate(uint _value) onlyOwner public {
-        releaseFinalizationDate = _value;
+    function setGlobalTimeVault(uint _globalTimeVaultOpeningTime) onlyOwner public {
+        globalTimeVault = _globalTimeVaultOpeningTime;
     }
 
     function admin(string functionName, string p1, string p2, string p3) onlyOwner public pure returns (string result) {
@@ -44,9 +51,9 @@ contract ELTTokenImpl is StandardTokenExt {
      * This function allows the token owner to rename the token after the operations
      * have been completed and then point the audience to use the token contract.
      */
-    function setTokenInformation(string _name, string _symbol) onlyOwner public {
-        name = _name;
-        symbol = _symbol;
+    function setTokenInformation(string _tokenName, string _tokenSymbol) onlyOwner public {
+        name = _tokenName;
+        symbol = _tokenSymbol;
         emit UpdatedTokenInformation(name, symbol);
     }
 }

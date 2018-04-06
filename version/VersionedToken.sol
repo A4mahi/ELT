@@ -28,18 +28,18 @@ contract VersionedToken is owned {
      * Please note: IMPORTANT
      * do not implement any function called "update()" otherwise it will break the Versioning system
      */
-    function VersionedToken(address initialVersion) public {
-        upgradableContractAddress = initialVersion;
+    function VersionedToken(address initialImplementation) public {
+        upgradableContractAddress = initialImplementation;
     }
 
     /**
      * update
-     * Call to update the implementation version of this constract
+     * Call to upgrade the implementation version of this constract
      *  newVersion: this is the address of the new implementation for the contract
      */
     
-    function update(address newVersion) onlyOwner public {
-        upgradableContractAddress = newVersion;
+    function upgradeToken(address newImplementation) onlyOwner public {
+        upgradableContractAddress = newImplementation;
     }
 
     /**

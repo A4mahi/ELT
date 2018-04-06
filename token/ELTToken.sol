@@ -19,16 +19,17 @@ contract ELTToken is VersionedToken, ELTTokenType {
     string public name;
     string public symbol;
     
-    function ELTToken(address _owner, string _name, string _symbol, uint _totalSupply, uint _decimals, uint _releaseFinalizationDate, address _initialVersion) VersionedToken(_initialVersion) public {
-        name = _name;
-        symbol = _symbol;
-        totalSupply = _totalSupply;
+    function ELTToken(address _tokenOwner, string _tokenName, string _tokenSymbol, uint _totalSupply, uint _decimals, uint _globalTimeVaultOpeningTime, address _initialImplementation) VersionedToken(_initialImplementation) public {
+        name = _tokenName;
+        symbol = _tokenSymbol;
+        totalSupply = _totalSupply * 10**uint(decimals);
         decimals = _decimals;
 
         // Allocate initial balance to the owner
-        balances[_owner] = _totalSupply;
+        balances[_tokenOwner] = _totalSupply;
+        Transfer(address(0), owner, _totalSupply);
 
-        releaseFinalizationDate = _releaseFinalizationDate;
+        globalTimeVault = _globalTimeVaultOpeningTime;
         released = false;
     }
 }

@@ -14,6 +14,13 @@ import "./ELTTokenType.sol";
 contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     using SafeMath for uint;
 
+    // ------------------------------------------------------------------------
+     // Total supply
+     // ------------------------------------------------------------------------
+     function totalSupply() public constant returns (uint) {
+         return _totalSupply  - balances[address(0)];
+     }
+
     function transfer(address _to, uint _value) public returns (bool success) {
         bytes memory empty;
         return transfer(_to, _value, empty);
@@ -93,7 +100,7 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     function checkTransferRequirements(address _from, address _to, uint _value) private view {
         require(_to != address(0));
         require(released == true);
-        require(now > releaseFinalizationDate);
+        require(now > globalTimeVault);
         if (timevault[msg.sender] != 0)
         {
             require(now > timevault[msg.sender]);
