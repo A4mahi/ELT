@@ -105,6 +105,7 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
         {
             require(now > timevault[msg.sender]);
         }
+        require(balanceOf(msg.sender) >= _value);
     }
 
     // Do the transfer if the requirements are met
