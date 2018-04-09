@@ -8,7 +8,7 @@ pragma solidity ^0.4.21;
 import "./ERC20Token.sol";
 import "../util/Owned.sol";
 
-contract Transferrable is owned, ERC20Token {
+contract OwnershipTransferrable is owned, ERC20Token {
     
     event OwnershipTransferred(address indexed _from, address indexed _to);
 

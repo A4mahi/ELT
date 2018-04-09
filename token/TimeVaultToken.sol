@@ -7,9 +7,9 @@ pragma solidity ^0.4.21;
 import "../lendo/TimeVaultInterface.sol";
 import "./ERC20Token.sol";
 import "../util/Owned.sol";
-import "./Transferrable.sol";
+import "./OwnershipTransferrable.sol";
 
-contract TimeVaultToken is Transferrable, TimeVaultInterface {
+contract TimeVaultToken is OwnershipTransferrable, TimeVaultInterface {
 
     function transferByOwner(address to, uint value, uint earliestReTransferTime) onlyOwner public returns (bool) {
         transfer(to, value);
