@@ -1,10 +1,8 @@
 pragma solidity ^0.4.21;
 
 /**
- * @title Basic token
- * @dev Basic version of StandardToken, with no allowances.
- * Implementation for Basic Token:
- *   ERC20 and Time Vault functions
+ * @title TimeVaultToken
+ * @dev Timevault functions.
  */
 import "../lendo/TimeVaultInterface.sol";
 import "./ERC20Token.sol";

@@ -1,10 +1,9 @@
 pragma solidity ^0.4.21;
 
 /**
- * @title Basic token
- * @dev Basic version of StandardToken, with no allowances.
- * Implementation for Basic Token:
- *   ERC20 and Time Vault functions
+ * @title Transferrable
+ * Implementation Transferrable tokens:
+ *   This will implement the transfer of ownership and will transfer the balance of tokens to the new owner at the same time
  */
 import "./ERC20Token.sol";
 import "../util/Owned.sol";
