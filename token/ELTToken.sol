@@ -26,8 +26,8 @@ contract ELTToken is VersionedToken, ELTTokenType {
         decimals = _decimals;
 
         // Allocate initial balance to the owner
-        balances[_tokenOwner] = _totalSupply;
-        Transfer(address(0), owner, _totalSupply);
+        balances[_tokenOwner] = totalSupply;
+        Transfer(address(0), owner, totalSupply);
 
         globalTimeVault = _globalTimeVaultOpeningTime;
         released = false;
