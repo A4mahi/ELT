@@ -37,9 +37,9 @@ contract ELTTokenImpl is StandardTokenExt {
         globalTimeVault = _globalTimeVaultOpeningTime;
     }
 
-    function admin(string functionName, string p1, string p2, string p3) onlyOwner public pure returns (string result) {
-        return functionName;
-    }
+//    function admin(string functionName, string p1, string p2, string p3) onlyOwner public pure returns (string result) {
+//        return functionName;
+//    }
 
     /**
      * Owner can update token information here.

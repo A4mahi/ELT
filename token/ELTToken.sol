@@ -18,7 +18,7 @@ import "./ELTTokenType.sol";
 contract ELTToken is VersionedToken, ELTTokenType {
     string public name;
     string public symbol;
-    
+
     function ELTToken(address _tokenOwner, string _tokenName, string _tokenSymbol, uint _totalSupply, uint _decimals, uint _globalTimeVaultOpeningTime, address _initialImplementation) VersionedToken(_initialImplementation) public {
         name = _tokenName;
         symbol = _tokenSymbol;
@@ -27,7 +27,7 @@ contract ELTToken is VersionedToken, ELTTokenType {
 
         // Allocate initial balance to the owner
         balances[_tokenOwner] = totalSupply;
-        Transfer(address(0), owner, totalSupply);
+        // Transfer(address(0), owner, totalSupply);
 
         globalTimeVault = _globalTimeVaultOpeningTime;
         released = false;

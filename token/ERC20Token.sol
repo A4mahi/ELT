@@ -17,9 +17,9 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     // ------------------------------------------------------------------------
      // Total supply
      // ------------------------------------------------------------------------
-     function totalSupply() public constant returns (uint) {
-         return _totalSupply  - balances[address(0)];
-     }
+//     function totalSupply() public constant returns (uint) {
+//         return _totalSupply  - balances[address(0)];
+//     }
 
     function transfer(address _to, uint _value) public returns (bool success) {
         bytes memory empty;
@@ -97,7 +97,7 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     // The destination is not the null address
     // The tokens have been released for sale
     // The sender's tokens are not locked in a timevault
-    function checkTransferRequirements(address _from, address _to, uint _value) private view {
+    function checkTransferRequirements(address _to, uint _value) private view {
         require(_to != address(0));
         require(released == true);
         require(now > globalTimeVault);
@@ -110,7 +110,7 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
 
     // Do the transfer if the requirements are met
     function transferIfRequirementsMet(address _from, address _to, uint _value, bool withAllowances) private {
-        checkTransferRequirements(_from, _to, _value);
+        checkTransferRequirements(_to, _value);
         if ( withAllowances)
         {
             require (_value <= allowed[_from][msg.sender]);

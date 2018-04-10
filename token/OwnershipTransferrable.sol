@@ -5,10 +5,9 @@ pragma solidity ^0.4.21;
  * Implementation Transferrable tokens:
  *   This will implement the transfer of ownership and will transfer the balance of tokens to the new owner at the same time
  */
-import "./ERC20Token.sol";
-import "../util/Owned.sol";
+import "./TimeVaultToken.sol";
 
-contract OwnershipTransferrable is owned, ERC20Token {
+contract OwnershipTransferrable is TimeVaultToken {
     
     event OwnershipTransferred(address indexed _from, address indexed _to);
 
