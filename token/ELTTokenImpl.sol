@@ -15,16 +15,6 @@ contract ELTTokenImpl is StandardTokenExt {
 
     string public name;
     string public symbol;
-    
-    function ELTTokenImpl() public {
-    }
-    
-    // ------------------------------------------------------------------------
-    // Don't accept ETH
-    // ------------------------------------------------------------------------
-    function () public payable {
-        revert();
-    }
 
     /**
      * One way function to perform the final token release.
@@ -36,10 +26,6 @@ contract ELTTokenImpl is StandardTokenExt {
     function setGlobalTimeVault(uint _globalTimeVaultOpeningTime) onlyOwner public {
         globalTimeVault = _globalTimeVaultOpeningTime;
     }
-
-//    function admin(string functionName, string p1, string p2, string p3) onlyOwner public pure returns (string result) {
-//        return functionName;
-//    }
 
     /**
      * Owner can update token information here.

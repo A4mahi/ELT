@@ -14,13 +14,6 @@ import "./ELTTokenType.sol";
 contract ERC20Token is ERC20Interface, ERC223Interface, ELTTokenType {
     using SafeMath for uint;
 
-    // ------------------------------------------------------------------------
-     // Total supply
-     // ------------------------------------------------------------------------
-//     function totalSupply() public constant returns (uint) {
-//         return _totalSupply  - balances[address(0)];
-//     }
-
     function transfer(address _to, uint _value) public returns (bool success) {
         bytes memory empty;
         return transfer(_to, _value, empty);
