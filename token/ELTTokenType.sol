@@ -17,5 +17,8 @@ contract ELTTokenType {
     
     // The date before the release must be finalized (a unix timestamp)
     uint public globalTimeVault;
+
+    event Transfer(address indexed from, address indexed to, uint tokens);
+
 }
 
