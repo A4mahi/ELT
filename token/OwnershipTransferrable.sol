@@ -7,12 +7,12 @@ pragma solidity ^0.4.21;
  */
 import "./TimeVaultToken.sol";
 
-contract OwnershipTransferrable is TimeVaultToken {
-    
+contract OwnershipTransferrable is TimeVaultToken{
+
     event OwnershipTransferred(address indexed _from, address indexed _to);
 
     function transferOwnership(address newOwner) onlyOwner public {
-        transferByOwner(newOwner, balanceOf(newOwner), 0);
+        transferByOwner(newOwner, balances[owner], 0);
         owner = newOwner;
         emit OwnershipTransferred(msg.sender, newOwner);
     }

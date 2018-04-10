@@ -6,7 +6,7 @@ pragma solidity ^0.4.21;
 // ----------------------------------------------------------------------------
 contract ERC20Interface {
     function balanceOf(address tokenOwner) public constant returns (uint balance);
-    function allowance(address tokenOwner, address spender) public constant returns (uint remaining);
+    function allowance(address _owner, address _spender) public constant returns (uint remaining);
     function transfer(address to, uint tokens) public returns (bool success);
     function approve(address spender, uint tokens) public returns (bool success);
     function transferFrom(address from, address to, uint256 _value) public returns (bool);
