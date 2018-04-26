@@ -15,6 +15,7 @@ contract ELTTokenImpl is StandardTokenExt {
 
     string public name;
     string public symbol;
+    bool private adminReturnStatus ;
 
     /**
      * One way function to perform the final token release.
@@ -26,10 +27,24 @@ contract ELTTokenImpl is StandardTokenExt {
     function setGlobalTimeVault(uint _globalTimeVaultOpeningTime) onlyOwner public {
         globalTimeVault = _globalTimeVaultOpeningTime;
     }
-    
+
+    /*
+     * This function is included to allow our token to be future proof.
+     * If we need extra functionality that is not included in the base token then we can add a pseudo function here
+     * 
+     * functionName - the name of the pseudo function we want to exectute
+     * p1 to p3 - three string parameters passed to the function
+     * 
+     * We will implement a switch statement (multiple if;then;else blocks) based on the functionName 
+     * that will be used to select the implemented function
+     */
     function admin(string functionName, string p1, string p2, string p3) onlyOwner public returns (bool result) {
-        return true;
+        // Use parameters to remove warning
+        adminReturnStatus = (bytes(functionName).length + bytes(p1).length + bytes(p2).length + bytes(p3).length) != 0;
+
+        return adminReturnStatus ;
     }
+    
     /**
      * Owner can update token information here.
      *
