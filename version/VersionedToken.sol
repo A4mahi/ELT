@@ -28,7 +28,7 @@ contract VersionedToken is owned {
      * Please note: IMPORTANT
      * do not implement any function called "update()" otherwise it will break the Versioning system
      */
-    function VersionedToken(address initialImplementation) public {
+    function constuctor(address initialImplementation) public {
         upgradableContractAddress = initialImplementation;
     }
 
